@@ -57,6 +57,7 @@ public class ActionBrushtool {
                 .coordX((int)this.event.getX())
                 .coordY((int)this.event.getY())
                 .stroke(stroke)
+                .thickness(this.brushtool.getComponents().getThickness())
                 .createBuilder();
 
         this.brushtool.getCoordinates().add(coordinates);

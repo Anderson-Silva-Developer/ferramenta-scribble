@@ -64,7 +64,7 @@ public class ControllerMain {
 
     @FXML
     void initialize(){
-        System.out.println(screenBounds.getMaxX()+" "+screenBounds.getMaxY());
+
         raioClear_=raioClear;
         pane_=pane;
         actionsScreen=new ActionsScreen();
@@ -113,6 +113,8 @@ public class ControllerMain {
         actionsMenu=new ActionsMenu.ActionsMenuBuilder()
                 .xoffset(0.0)
                 .yoffset(0.0)
+                .MaxX((int)screenBounds.getMaxX())
+                .MaxY((int)screenBounds.getMaxY())
                 .createBuilder();
         components.getMenu().setLayoutX(lar-200);
 
@@ -191,6 +193,7 @@ public class ControllerMain {
     void hidePainter() throws IOException {
         Main.changeScreen("hide");
     }
+
 
 
     }

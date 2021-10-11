@@ -61,7 +61,8 @@ public class keyboardActions {
                     int x_ = coordinates.get(i).getCoordX();
                     int y_ = coordinates.get(i).getCoordY();
                     int x2_ = coordinates.get(i - 1).getCoordX();
-                    int y2_ = coordinates.get(i - 1).getCoordY();
+                    int y2_ = coordinates.get(i - 1).getCoordY();//
+                    this.components.getCanvas().getGraphicsContext2D().setLineWidth(coordinates.get(i).getThickness());
                     this.components.getCanvas().getGraphicsContext2D().setStroke(coordinates.get(i).getStroke());
                     this.components.getCanvas().getGraphicsContext2D().strokeLine(x2_, y2_, x_, y_);
 

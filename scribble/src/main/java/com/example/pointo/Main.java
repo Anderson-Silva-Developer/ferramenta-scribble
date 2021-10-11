@@ -21,6 +21,8 @@ public class Main extends Application {
     private  static  Scene  hideScene;
     private static  double coordX=0;
     private static  double coordY=0;
+    private static Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+
 
 
 
@@ -52,16 +54,19 @@ public class Main extends Application {
             public void handle(MouseEvent mouseEvent) {
                 xoffset=mouseEvent.getSceneX();
                 yoffset=mouseEvent.getSceneY();
+
             }
         });
         sceneMain.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
-                primaryStage.setX(mouseEvent.getScreenX()-xoffset);
-                primaryStage.setY(mouseEvent.getScreenY()-yoffset);
-                coordX=primaryStage.getX();
-                coordY=primaryStage.getY();
+                    primaryStage.setX(mouseEvent.getScreenX() - xoffset);
+                    primaryStage.setY(mouseEvent.getScreenY() - yoffset);
+                    coordX = primaryStage.getX();
+                    coordY = primaryStage.getY();
+
+
 
             }
         });
@@ -71,6 +76,7 @@ public class Main extends Application {
             public void handle(MouseEvent mouseEvent) {
                 xoffset=mouseEvent.getSceneX();
                 yoffset=mouseEvent.getSceneY();
+
             }
         });
         sceneHide.setOnMouseDragged(new EventHandler<MouseEvent>() {
@@ -96,8 +102,11 @@ public class Main extends Application {
             case "main":
                 stage.setScene(mainScene);
                 stage.setAlwaysOnTop(true);
-                ControllerMain.pane_.setLayoutX(coordX);
-                ControllerMain.pane_.setLayoutY(coordY);
+                ControllerMain.pane_.setLayoutX(coordX=coordX<1?1:coordX);
+                ControllerMain.pane_.setLayoutX(coordX=coordX>screenBounds.getMaxX()-90?(screenBounds.getMaxX()-90):coordX);
+                ControllerMain.pane_.setLayoutY(coordY=coordY<1?1:coordY);
+                ControllerMain.pane_.setLayoutY(coordY=coordY>screenBounds.getMaxY()-100?screenBounds.getMaxY()-100:coordY);
+//
                 break;
 
             case  "hide":
@@ -105,6 +114,7 @@ public class Main extends Application {
                 stage.setAlwaysOnTop(true);
                 stage.setX(ControllerMain.pane_.getLayoutX());
                 stage.setY(ControllerMain.pane_.getLayoutY());
+
                 break;
 
         }
