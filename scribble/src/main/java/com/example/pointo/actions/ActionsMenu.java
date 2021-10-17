@@ -98,9 +98,7 @@ public class ActionsMenu {
                 if((mouseEvent.getScreenX() - xoffset)>1 && (mouseEvent.getScreenX() - xoffset) < (MaxX-90) && (mouseEvent.getScreenY() - yoffset)>1 && (mouseEvent.getScreenY() - yoffset)<MaxY-100) {
                     pane.setLayoutX(mouseEvent.getScreenX() - xoffset);
                     pane.setLayoutY(mouseEvent.getScreenY() - yoffset);
-                    System.out.println("movimento real");
-                    System.out.println(pane.getLayoutX());
-                    System.out.println(pane.getLayoutY());
+
                 }
             }
         });

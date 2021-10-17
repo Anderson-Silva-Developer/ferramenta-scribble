@@ -9,6 +9,7 @@ public class Coordinates {
     private Paint stroke;
     private int thickness;
 
+
     public int getThickness() {
         return thickness;
     }

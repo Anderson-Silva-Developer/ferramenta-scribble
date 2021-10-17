@@ -84,6 +84,16 @@ public class ActionsGroupColor {
         });
 
     }
+    public void defaultSize(Group gColor){
+        gColor.getChildren().forEach(rect-> {
+
+                rect.setScaleX(1);
+                rect.setScaleY(1);
+
+        });
+
+
+    }
     private  void setColorLine(Group groupLine){
         groupLine.getChildren().forEach(line -> {
             ((Line)line).setStroke(color);

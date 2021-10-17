@@ -9,7 +9,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -20,9 +19,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ControllerMain {
@@ -47,8 +46,9 @@ public class ControllerMain {
     int thickness =2;
     Paint color;
     ArrayList<Coordinates> coord =new ArrayList<>();
-    ArrayList<ArrayList<Coordinates>>coords =new ArrayList<>();
-    ArrayList<GraphicsContext> stoke=new ArrayList<>();
+    ArrayList<ArrayList<Coordinates>> coords =new ArrayList<>();
+    public static List<Integer> status=new ArrayList<>();
+
     Rectangle2D screenBounds = Screen.getPrimary().getBounds();
     ActionsGroupColor actionColor;
     ActionsGroupLine actionLine;
@@ -64,6 +64,7 @@ public class ControllerMain {
 
     @FXML
     void initialize(){
+
 
         raioClear_=raioClear;
         pane_=pane;
@@ -97,7 +98,7 @@ public class ControllerMain {
                 .coords(coords)
                 .createBuilder();
 
-        actionsCanvas.actionCanvas(base,keyboard);
+        actionsCanvas.actionCanvasShortcut(base,keyboard);
 
         actionColor=new ActionsGroupColor.ActionsGroupColorBuilder()
                 .color(components.getColor())
@@ -130,6 +131,9 @@ public class ControllerMain {
                 .brushtool(brushtool)
                 .createBuilder();
 
+
+
+
     }
     @FXML
     void DrawOnScreen(MouseEvent event) {
@@ -140,8 +144,9 @@ public class ControllerMain {
             actionBrushtool.DrawOnScreen(actionColor.getColor());
 
         }else{
+
             this.rectangleMouse.setVisible(true);
-            clearLineCanvas(event);
+            clearScribbleCanvas(event);
         }
     }
 
@@ -156,28 +161,27 @@ public class ControllerMain {
 
     }
     @FXML
-    void clearLineCanvas(MouseEvent event){
+    void clearScribbleCanvas(MouseEvent event){
 
         if(clearCanvas) {
             this.rectangleMouse.setLayoutX(event.getX());
             this.rectangleMouse.setLayoutY(event.getY());
             this.rectangleMouse.setWidth(raioClear.getValue());
             this.rectangleMouse.setHeight(raioClear.getValue());
-
-            components.getCanvas()
-                    .getGraphicsContext2D()
-                    .clearRect(event.getX(), event.getY(), raioClear.getValue(), raioClear.getValue());
-            
+            actionsCanvas.actionCanvasclearScribble(coords,raioClear,event,components);
         }
     }
     @FXML
     void clearCanvasValue(){
-        clearCanvas=!clearCanvas;
-        if(clearCanvas) {
-            this.raioClear.setVisible(true);
+        if(!clearCanvas){
+           this.raioClear.setVisible(true);
             Image im=new Image(Main.class.getResourceAsStream("/img/clear.png"));
             components.getCanvas().setCursor(new ImageCursor(im));
+            clearCanvas=!clearCanvas;
+            actionColor.defaultSize(groupColor);
+
         }
+
     }
     @FXML
     void clearlistCoord(MouseEvent event){
@@ -193,7 +197,6 @@ public class ControllerMain {
     void hidePainter() throws IOException {
         Main.changeScreen("hide");
     }
-
 
 
     }
